@@ -4,23 +4,23 @@ import globals from "globals";
 export type GlobalsConfig = Array<keyof typeof globals>;
 
 export function defineGlobals(
-  config?: GlobalsConfig
-): Array<FlatConfig.Config> {
-  if (config === undefined) {
-    config = ["node", "browser", "es2020"];
+  config: GlobalsConfig = ["node", "browser", "es2020"]
+): FlatConfig.Config[] {
+  if (!Array.isArray(config)) {
+    throw new Error("Globals config must be an array");
   }
 
-  let collectedGlobals: Record<string, boolean> = {};
-
-  for (const item of config) {
-    collectedGlobals = {
-      ...collectedGlobals,
-      ...globals[item],
-    };
-  }
+  const collectedGlobals = config.reduce((acc, env) => {
+    if (!globals[env]) {
+      console.warn(`Unknown global environment: ${env}`);
+      return acc;
+    }
+    return { ...acc, ...globals[env] };
+  }, {});
 
   return [
     {
+      name: "outslept/globals",
       languageOptions: {
         globals: collectedGlobals,
       },
