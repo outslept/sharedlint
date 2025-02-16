@@ -1,10 +1,34 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-import createCommand from "eslint-plugin-command/config";
+import {
+  defineCommand as defineCmd,
+  builtinCommands,
+} from "eslint-plugin-command/commands";
+import commandPlugin from "eslint-plugin-command/config";
 
-export function defineCommand(): Array<FlatConfig.Config> {
+export interface CommandOptions {
+  /**
+   * Custom commands to add to the configuration
+   * @default []
+   */
+  commands?: Array<ReturnType<typeof defineCmd>>;
+
+  /**
+   * Include built-in commands
+   * @default true
+   */
+  includeBuiltin?: boolean;
+}
+
+export function defineCommand(
+  options: CommandOptions = {}
+): FlatConfig.Config[] {
+  const { commands = [], includeBuiltin = true } = options;
+
   return [
     {
-      ...createCommand(),
+      ...commandPlugin({
+        commands: [...(includeBuiltin ? builtinCommands : []), ...commands],
+      }),
       name: "outslept/command/rules",
     },
   ];
