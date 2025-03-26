@@ -1,21 +1,7 @@
 {
   "name": "@outslept/prettier",
   "version": "0.0.0",
-  "description": "Shareable Prettier configurations for a monorepo",
-  "license": "MIT",
   "private": "true",
-  "author": {
-    "name": "outslept",
-    "url": "https://github.com/outslept"
-  },
-  "homepage": "https://github.com/outslept/sharedlint#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/outslept/sharedlint.git"
-  },
-  "bugs": {
-    "url": "https://github.com/outslept/sharedlint/issues"
-  },
   "keywords": [
     "prettier",
     "shareable-config",
@@ -23,7 +9,6 @@
     "style",
     "linter"
   ],
-  "main": "index.js",
   "peerDependencies": {
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.4.12"

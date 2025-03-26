@@ -1,0 +1,11 @@
+{
+  "name": "@sharedlint/editorconfig",
+  "version": "0.0.0",
+  "private": "true",
+  "keywords": [
+    "editorconfig",
+    "shareable-config",
+    "code-formatting",
+    "style"
+  ]
+}

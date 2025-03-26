@@ -1,20 +1,6 @@
 {
-    "name": "biome",
+    "name": "@sharedlint/biome",
     "version": "0.0.0",
-    "main": "biome.json",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/outslept/sharedlint.git"
-    },
-    "description": "Shareable Biome configurations for a monorepo",
-    "author": {
-        "name": "outslept",
-        "url": "https://github.com/outslept"
-    },
-    "bugs": {
-        "url": "https://github.com/outslept/sharedlint/issues"
-    },
-    "homepage": "https://github.com/outslept/sharedlint#readme",
     "keywords": [
         "biome",
         "shareable-config",
@@ -22,7 +8,6 @@
         "code-formatting",
         "style"
     ],
-    "license": "MIT",
     "private": "true",
     "peerDependencies": {
         "biome": "^0.3.3"

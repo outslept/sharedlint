@@ -1,6 +1,11 @@
 {
   "name": "stylelint",
   "version": "0.0.0",
+  "keywords": [
+    "stylelint",
+    "shareable-config",
+    "code-formatting"
+  ],
   "license": "MIT",
   "private": "true",
   "peerDependencies": {

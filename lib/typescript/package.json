@@ -1,47 +1,12 @@
 {
   "name": "@outslept/tsconfig",
   "version": "0.0.0",
-  "main": "base.json",
-  "description": "Shareable TypeScript configurations for a monorepo",
-  "files": [
-    "base.json",
-    "tsconfig.next.json",
-    "tsconfig.node16.json",
-    "tsconfig.node18.json",
-    "tsconfig.node20.json",
-    "tsconfig.react-library.json"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/outslept/sharedlint.git"
-  },
-  "author": {
-    "name": "outslept",
-    "url": "https://github.com/outslept"
-  },
-  "bugs": {
-    "url": "https://github.com/outslept/sharedlint/issues"
-  },
-  "exports": {
-    ".": "./base.json",
-    "./next": "./tsconfig.next.json",
-    "./node16": "./tsconfig.node16.json",
-    "./node18": "./tsconfig.node18.json",
-    "./node20": "./tsconfig.node20.json",
-    "./react-library": "./tsconfig.react-library.json"
-  },
-  "homepage": "https://github.com/outslept/sharedlint#readme",
   "keywords": [
     "typescript",
     "tsconfig",
     "shareable-config",
-    "preset",
-    "nextjs",
-    "node",
-    "react",
-    "library"
+    "preset"
   ],
-  "license": "MIT",
   "private": "true",
   "peerDependencies": {
     "typescript": ">=5.0.0"
