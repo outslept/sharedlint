@@ -1,0 +1,14 @@
+{
+  "name": "@outslept/tsconfig",
+  "version": "0.0.0",
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "shareable-config",
+    "preset"
+  ],
+  "private": "true",
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

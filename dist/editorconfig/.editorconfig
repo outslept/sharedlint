@@ -1,0 +1,47 @@
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markdown files allow trailing whitespace for line breaks
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# Python uses 4 spaces per PEP 8
+# https://peps.python.org/pep-0008/#indentation
+[*.py]
+indent_size = 4
+
+# Shell scripts use 2 spaces per Google's style guide
+# https://google.github.io/styleguide/shellguide.html#indentation
+[*.sh]
+indent_size = 2
+end_of_line = lf
+
+# Batch files use CRLF as per Windows conventions
+[*.{cmd,bat}]
+end_of_line = crlf
+
+# HTML/CSS use 2 spaces per Google style guides
+# https://google.github.io/styleguide/htmlcssguide.html#General_Formatting_Rules
+[*.{html,css,scss,less,sass}]
+indent_size = 2
+
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+# YAML files are indent-sensitive and community standard is 2 spaces
+# https://yaml.org/spec/1.2.2/#61-indentation-spaces
+[*.{yml,yaml}]
+indent_size = 2

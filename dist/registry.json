@@ -1,0 +1,47 @@
+{
+  "biome": {
+    "name": "biome",
+    "description": "biome configuration",
+    "version": "1.0.0",
+    "files": [
+      "/biome/biome.json"
+    ]
+  },
+  "editorconfig": {
+    "name": "editorconfig",
+    "description": "editorconfig configuration",
+    "version": "1.0.0",
+    "files": [
+      "/editorconfig/.editorconfig"
+    ]
+  },
+  "prettier": {
+    "name": "prettier",
+    "description": "prettier configuration",
+    "version": "1.0.0",
+    "files": [
+      "/prettier/prettier.config.mjs"
+    ]
+  },
+  "stylelint": {
+    "name": "stylelint",
+    "description": "stylelint configuration",
+    "version": "1.0.0",
+    "files": [
+      "/stylelint/stylelint.config.mjs"
+    ]
+  },
+  "typescript": {
+    "name": "typescript",
+    "description": "typescript configuration",
+    "version": "0.0.0",
+    "files": [
+      "/typescript/tsconfig.app.json",
+      "/typescript/tsconfig.library.json",
+      "/typescript/tsconfig.monorepo.json",
+      "/typescript/tsconfig.next.json",
+      "/typescript/tsconfig.react-lib.json",
+      "/typescript/tsconfig.web-app.json"
+    ]
+  }
+}

@@ -1,47 +1,38 @@
 {
-  "name": "@sharedlint/monorepo",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "root",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=18"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "pnpm run format:prettier && pnpm run format:eslint",
-    "format:prettier": "prettier --write \"**/*.{js,ts,tsx,json,md}\"",
-    "version": "changeset version",
-    "release": "changeset publish",
-    "commit": "cz"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
+    "format:prettier": "prettier --write \"**/*.{js,ts,tsx,json,md}\""
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.11.0",
-    "@changesets/cli": "^2.28.1",
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
+    "@types/node": "^22.14.1",
     "eslint": "^9.23.0",
     "eslint-plugin-format": "^1.0.1",
     "nano-staged": "^0.8.0",
     "simple-git-hooks": "^2.12.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx nano-staged",
-    "commit-msg": "npx --no -- commitlint --edit ${1}"
+    "pre-commit": "npx nano-staged"
   },
   "nano-staged": {
     "*.{js,ts,mjs}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.1",
+    "ansis": "^3.17.0",
+    "hono": "^4.7.7",
+    "mri": "^1.2.0",
+    "ofetch": "^1.4.1",
+    "ora": "^8.2.0",
+    "pathe": "^2.0.3"
   }
 }

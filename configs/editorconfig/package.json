@@ -1,7 +1,5 @@
 {
-  "name": "@sharedlint/editorconfig",
-  "version": "0.0.0",
-  "private": "true",
+  "name": "editorconfig",
   "keywords": [
     "editorconfig",
     "shareable-config",
