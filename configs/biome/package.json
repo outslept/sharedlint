@@ -1,6 +1,0 @@
-{
-    "name": "biome",
-    "peerDependencies": {
-        "biome": "^0.3.3"
-    }
-}
