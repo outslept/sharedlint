@@ -1,82 +1,81 @@
-import fs from 'fs/promises'
-import { join, resolve } from 'pathe'
-import c from 'ansis'
-import ora from 'ora'
+import { readFileSync, readdirSync, existsSync } from 'fs'
+import { join, extname, dirname, resolve } from 'pathe'
+import { fileURLToPath } from 'url'
 
-type Registry = Record<string, {
-  name: string
-  description: string
-  version: string
-  files: string[]
-}>
+const currentFilePath = fileURLToPath(import.meta.url)
+const currentDir = dirname(currentFilePath)
 
-type ConfigPackage = {
-  name?: string
-  description?: string
-  version?: string
-  dependencies?: Record<string, string>
-  peerDependencies?: Record<string, string>
+const findRootDir = (startDir: string): string => {
+  const possibleConfigsDir = resolve(startDir, 'configs')
+  if (existsSync(possibleConfigsDir)) {
+    return startDir
+  }
+
+  if (startDir.includes('.nitro/dev')) {
+    return resolve(startDir, '../..')
+  }
+
+  const parentDir = resolve(startDir, '..')
+
+  if (parentDir === startDir) {
+    return startDir
+  }
+
+  return findRootDir(parentDir)
 }
 
-async function buildRegistry(): Promise<void> {
-  const spinner = ora('Building configuration registry').start()
+const rootDir = findRootDir(currentDir)
+console.log('Root directory:', rootDir)
+
+interface ConfigRegistry {
+  [key: string]: any;
+}
+
+export function buildConfigRegistry(): ConfigRegistry {
+  const configsDir = join(rootDir, 'configs')
+  console.log('Configs directory:', configsDir)
+
+  const registry: ConfigRegistry = {}
 
   try {
-    const configsDir = resolve(process.cwd(), 'configs')
-    const configs = await fs.readdir(configsDir)
-    const registry: Registry = {}
+    if (!existsSync(configsDir)) {
+      console.error(`Configs directory does not exist: ${configsDir}`)
+      return registry
+    }
 
-    for (const config of configs) {
-      const configPath = join(configsDir, config)
-      const stat = await fs.stat(configPath)
+    const files = readdirSync(configsDir)
 
-      if (stat.isDirectory()) {
-        try {
-          const files = await fs.readdir(configPath)
-          const packageJsonPath = join(configPath, 'package.json')
-          const packageJsonContent = await fs.readFile(packageJsonPath, 'utf-8')
-          const packageJson = JSON.parse(packageJsonContent) as ConfigPackage
+    for (const file of files) {
+      const filePath = join(configsDir, file)
+      const ext = extname(file)
+      const name = file.replace(ext, '')
 
-          registry[config] = {
-            name: config,
-            description: packageJson.description || `${config} configuration`,
-            version: packageJson.version || '1.0.0',
-            files: files
-              .filter(file => file !== 'package.json')
-              .map(file => `/${config}/${file}`)
+      try {
+        let content: any
+
+        if (ext === '.json') {
+          content = JSON.parse(readFileSync(filePath, 'utf-8'))
+        } else if (['.js', '.mjs'].includes(ext)) {
+          const fileContent = readFileSync(filePath, 'utf-8')
+          content = {
+            type: 'js-module',
+            content: fileContent
           }
-        } catch (error) {
-          console.error(`Error processing ${config}:`, error)
+        } else {
+          content = readFileSync(filePath, 'utf-8')
         }
+
+        registry[name] = content
+      } catch (error) {
+        console.error(`Error processing file ${file}:`, error)
+        registry[name] = { error: `Failed to process: ${error.message}` }
       }
     }
-
-    const outputDir = resolve(process.cwd(), 'dist')
-    await fs.mkdir(outputDir, { recursive: true })
-    await fs.writeFile(join(outputDir, 'registry.json'), JSON.stringify(registry, null, 2))
-
-    for (const [config, info] of Object.entries(registry)) {
-      const configDir = join(outputDir, config)
-      await fs.mkdir(configDir, { recursive: true })
-
-      const packageJsonPath = join(configsDir, config, 'package.json')
-      await fs.copyFile(packageJsonPath, join(configDir, 'package.json'))
-
-      for (const fileUrl of info.files) {
-        const fileName = fileUrl.split('/').pop() as string
-        const srcPath = join(configsDir, config, fileName)
-        const destPath = join(configDir, fileName)
-        await fs.copyFile(srcPath, destPath)
-      }
-    }
-
-    spinner.succeed('Registry built successfully')
-    console.log(c.green(`Output directory: ${outputDir}`))
   } catch (error) {
-    spinner.fail('Failed to build registry')
-    console.error(c.red((error as Error).message))
-    process.exit(1)
+    console.error('Error reading configs directory:', error)
   }
+
+  return registry
 }
 
-buildRegistry()
+export const configRegistry = buildConfigRegistry()

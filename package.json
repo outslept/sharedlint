@@ -1,13 +1,14 @@
 {
   "name": "root",
+  "version": "0.0.0",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "pnpm run format:prettier && pnpm run format:eslint",
-    "format:prettier": "prettier --write \"**/*.{js,ts,tsx,json,md}\""
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.11.0",
@@ -15,6 +16,7 @@
     "eslint": "^9.23.0",
     "eslint-plugin-format": "^1.0.1",
     "nano-staged": "^0.8.0",
+    "nitropack": "^2.11.9",
     "simple-git-hooks": "^2.12.1"
   },
   "simple-git-hooks": {
@@ -27,12 +29,7 @@
     ]
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.1",
-    "ansis": "^3.17.0",
-    "hono": "^4.7.7",
-    "mri": "^1.2.0",
-    "ofetch": "^1.4.1",
-    "ora": "^8.2.0",
+    "h3": "^1.15.1",
     "pathe": "^2.0.3"
   }
 }
