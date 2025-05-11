@@ -16,6 +16,13 @@ export default defineNitroConfig({
     }
   ],
 
+  serverAssets: [
+    {
+      baseName: 'configs',
+      dir: 'configs',
+    }
+  ],
+
   runtimeConfig: {
     app: {
       repoUrl: 'https://github.com/outslept/sharedlint',
