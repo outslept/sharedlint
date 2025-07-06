@@ -1,46 +1,34 @@
-# SharedLint
+# sharedlint
 
-A collection of shareable linting and formatting presets for modern web development.
+A collection of shareable linting and formatting configurations for web development.
 
-## Configuration Packages
-
-- `@sharedlint/eslint` - ESLint configurations
-- `@sharedlint/prettier` - Prettier configuration
-- `@sharedlint/stylelint` - Stylelint configuration
-- `@sharedlint/biome` - Biome configuration
-- `@sharedlint/editorconfig` - EditorConfig configuration
-- `@sharedlint/typescript` - TypeScript configurations
-
-## Development
+## Quick Start
 
 ```bash
-# Install dependencies
-pnpm install
+# List available configurations
+npx sharedlint list
 
-# Lint code
-pnpm lint
+# Add a specific config
+npx sharedlint add biome.json
 
-# Fix linting issues
-pnpm lint:fix
-
-# Format code
-pnpm format
-
-# Create a commit (uses commitizen)
-pnpm commit
+# Add all configs to a directory
+npx sharedlint add-all -d configs
 ```
 
-## Contributing
+## Available Configurations
 
-1. Create a feature branch from `canary`
-2. Make your changes
-3. Run `pnpm changeset` to document your changes
-4. Commit your changes (use `pnpm commit` for conventional commits)
-5. Create a pull request
+- `biome.json` - Biome linter and formatter
+- `prettier.config.mjs` - Prettier formatter
+- `stylelint.config.mjs` - Stylelint CSS linter
+- `.editorconfig` - Editor settings
+- `tsconfig.*.json` - TypeScript configurations
 
-## Attribution
+## API
 
-- https://github.com/haydenbleasel/ultracite
+```bash
+curl https://sharedlint.vercel.app/configs
+curl https://sharedlint.vercel.app/biome.json
+```
 
 ## License
 
