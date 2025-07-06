@@ -1,22 +1,12 @@
 {
   "name": "root",
   "version": "0.0.0",
-  "engines": {
-    "node": ">=18"
-  },
-  "scripts": {
-    "build": "nitro build",
-    "dev": "nitro dev",
-    "prepare": "nitro prepare",
-    "preview": "node .output/server/index.mjs"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^4.11.0",
     "@types/node": "^22.14.1",
     "eslint": "^9.23.0",
     "eslint-plugin-format": "^1.0.1",
     "nano-staged": "^0.8.0",
-    "nitropack": "^2.11.9",
     "simple-git-hooks": "^2.12.1"
   },
   "simple-git-hooks": {
@@ -24,12 +14,7 @@
   },
   "nano-staged": {
     "*.{js,ts,mjs}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix"
     ]
-  },
-  "dependencies": {
-    "h3": "^1.15.1",
-    "pathe": "^2.0.3"
   }
 }
