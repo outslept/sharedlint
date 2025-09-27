@@ -16,7 +16,7 @@ const prettierConfig = {
 
   singleQuote: true,
 
-  trailingComma: 'es5',
+  trailingComma: 'none',
   semi: true,
   bracketSpacing: true,
   bracketSameLine: false,
