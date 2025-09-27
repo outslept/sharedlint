@@ -1,5 +1,5 @@
-import antfu from '@antfu/eslint-config'
+import neostandard from 'neostandard'
 
-export default antfu({
-  formatters: true,
+export default neostandard({
+  ts: true
 })

@@ -1,20 +1,13 @@
 {
   "name": "root",
   "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.11.0",
     "@types/node": "^22.14.1",
     "eslint": "^9.23.0",
-    "eslint-plugin-format": "^1.0.1",
-    "nano-staged": "^0.8.0",
-    "simple-git-hooks": "^2.12.1"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx nano-staged"
-  },
-  "nano-staged": {
-    "*.{js,ts,mjs}": [
-      "eslint --fix"
-    ]
+    "neostandard": "^0.12.2"
   }
 }
