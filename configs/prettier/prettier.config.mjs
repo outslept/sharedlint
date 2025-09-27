@@ -9,25 +9,25 @@ const prettierConfig = {
    *
    * @see https://github.com/prettier/prettier/blob/main/docs/configuration.md#editorconfig
    */
-  endOfLine: "lf",
+  endOfLine: 'lf',
   tabWidth: 2,
-  printWidth: 80,
+  printWidth: 120,
   useTabs: false,
 
   singleQuote: true,
 
-  trailingComma: "es5",
+  trailingComma: 'es5',
   semi: true,
   bracketSpacing: true,
   bracketSameLine: false,
-  arrowParens: "always",
-  htmlWhitespaceSensitivity: "css",
+  arrowParens: 'always',
+  htmlWhitespaceSensitivity: 'css',
 
-  embeddedLanguageFormatting: "auto",
-  proseWrap: "preserve",
-  quoteProps: "as-needed",
+  embeddedLanguageFormatting: 'auto',
+  proseWrap: 'preserve',
+  quoteProps: 'as-needed',
 
-  plugins: ["prettier-plugin-packagejson"],
-};
+  plugins: ['prettier-plugin-packagejson'],
+}
 
-export default prettierConfig;
+export default prettierConfig
