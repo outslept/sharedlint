@@ -1,0 +1,99 @@
+{
+    "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxlint/configuration_schema.json",
+    "plugins": [
+        "eslint",
+        "typescript",
+        "unicorn",
+        "oxc",
+        "import",
+        "node",
+        "promise"
+    ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "globals": {
+        "document": "readonly",
+        "navigator": "readonly",
+        "window": "readonly"
+    },
+    "ignorePatterns": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/.vercel/**",
+        "**/.next/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/coverage/**",
+        "**/.turbo/**",
+        "**/.cache/**",
+        "**/storybook-static/**",
+        "**/vendor/**",
+        "**/*.min.*",
+        "**/*.generated.*",
+        "**/__snapshots__/**",
+        "**/out/**"
+    ],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "error",
+        "perf": "warn",
+        "style": "warn",
+        "restriction": "off",
+        "nursery": "off"
+    },
+    "rules": {
+        "eslint/no-var": "error",
+        "eslint/prefer-template": "error",
+        "eslint/prefer-exponentiation-operator": "error",
+        "eslint/no-debugger": "error",
+        "eslint/no-template-curly-in-string": "error",
+        "eslint/no-useless-escape": "error",
+        "eslint/array-callback-return": "error",
+        "eslint/no-throw-literal": "error",
+        "eslint/use-isnan": "error",
+        "eslint/valid-typeof": "error",
+        "eslint/eqeqeq": "error",
+        "import/first": "error",
+        "import/no-absolute-path": "error",
+        "import/no-duplicates": "error",
+        "import/no-default-export": "error",
+        "import/no-commonjs": "error",
+        "import/no-cycle": "error",
+        "unicorn/prefer-node-protocol": "error",
+        "oxc/no-barrel-file": "error",
+        "typescript/no-namespace": "error",
+        "typescript/no-non-null-assertion": "error",
+        "typescript/consistent-type-imports": "error",
+        "typescript/consistent-type-definitions": "error",
+        "typescript/prefer-function-type": "error",
+        "typescript/no-empty-interface": "error",
+        "typescript/no-inferrable-types": "error",
+        "node/no-exports-assign": "error",
+        "promise/param-names": "error"
+    },
+    "overrides": [
+        {
+            "files": [
+                "**/*.{ts,tsx}"
+            ],
+            "plugins": [
+                "typescript"
+            ],
+            "rules": {
+                "typescript/consistent-type-imports": "error",
+                "typescript/prefer-function-type": "error"
+            }
+        },
+        {
+            "files": [
+                "**/*.{test,spec}.{js,jsx,ts,tsx}"
+            ],
+            "rules": {
+                "eslint/no-console": "off"
+            }
+        }
+    ]
+}
