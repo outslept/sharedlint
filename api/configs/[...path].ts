@@ -1,35 +1,42 @@
-const { readFile, stat } = require('node:fs/promises')
-const path = require('node:path')
+import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { readFile, stat } from 'node:fs/promises'
+import path from 'node:path'
 
 const CONFIG_DIR = path.join(process.cwd(), 'configs')
 const BASE = path.resolve(CONFIG_DIR)
+const BASE_ROUTE = '/api/configs/'
 
-function contentTypeFor (id) {
+function contentTypeFor(id: string): string {
   if (id.endsWith('.json')) return 'application/json; charset=utf-8'
   if (id.endsWith('.yml') || id.endsWith('.yaml')) return 'text/yaml; charset=utf-8'
   return 'text/plain; charset=utf-8'
 }
-
-function etagFor (s) {
+function etagFor(s: { size: number; mtimeMs: number }): string {
   return `W/"${s.size}-${Math.trunc(s.mtimeMs)}"`
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.setHeader('Allow', 'GET, HEAD')
     return res.status(405).json({ status: 405, message: 'Method not allowed' })
   }
-  try {
-    const segs = Array.isArray(req.query.path) ? req.query.path : [req.query.path].filter(Boolean)
-    if (segs.length === 0) return res.status(404).json({ status: 404, message: 'Not found' })
-    const id = segs.join('/')
 
+  try {
+    const url = new URL(req.url || '/', 'http://localhost')
+    const pathname = url.pathname
+
+    if (!pathname.startsWith(BASE_ROUTE) || pathname === BASE_ROUTE) {
+      return res.status(404).json({ status: 404, message: 'Not found' })
+    }
+
+    const id = decodeURIComponent(pathname.slice(BASE_ROUTE.length))
     const full = path.resolve(path.join(BASE, id))
-    if (!full.startsWith(BASE + path.sep)) {
+    const rel = path.relative(BASE, full)
+    if (rel.startsWith('..') || path.isAbsolute(rel)) {
       return res.status(400).json({ status: 400, message: 'Invalid path' })
     }
 
-    let s
+    let s: { size: number; mtimeMs: number }
     try {
       s = await stat(full)
     } catch {
@@ -41,7 +48,6 @@ module.exports = async (req, res) => {
     res.setHeader('Cache-Control', 'public, max-age=60')
     if (req.headers['if-none-match'] === etag) return res.status(304).end()
 
-    const url = new URL(req.url || '', 'http://localhost')
     const format = (url.searchParams.get('format') || '').toLowerCase()
     const download = url.searchParams.get('download') === '1'
 
@@ -74,7 +80,7 @@ module.exports = async (req, res) => {
       contentType: contentTypeFor(id),
       content,
     })
-  } catch (err) {
-    return res.status(500).json({ status: 500, message: err.message })
+  } catch (err: any) {
+    return res.status(500).json({ status: 500, message: err?.message || 'Internal error' })
   }
 }

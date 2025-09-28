@@ -7,7 +7,9 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
+    "@vercel/node": "^5.3.24",
     "eslint": "^9.23.0",
-    "neostandard": "^0.12.2"
+    "neostandard": "^0.12.2",
+    "typescript": "^5.9.2"
   }
 }
