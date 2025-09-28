@@ -13,10 +13,10 @@ type Item = {
   mtimeMs: number
 }
 
-async function listAllConfigs(): Promise<Item[]> {
+async function listAllConfigs (): Promise<Item[]> {
   const items: Item[] = []
 
-  async function walk(dir: string): Promise<void> {
+  async function walk (dir: string): Promise<void> {
     const entries = await readdir(dir, { withFileTypes: true })
     for (const entry of entries) {
       const full = path.join(dir, entry.name)
@@ -43,7 +43,7 @@ async function listAllConfigs(): Promise<Item[]> {
   return items
 }
 
-export default async function listConfigs(req: VercelRequest, res: VercelResponse) {
+export default async function listConfigs (req: VercelRequest, res: VercelResponse) {
   const method = req.method || 'GET'
   if (method !== 'GET' && method !== 'HEAD') {
     res.setHeader('Allow', 'GET, HEAD')

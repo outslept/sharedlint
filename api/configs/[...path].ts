@@ -5,24 +5,24 @@ import path from 'node:path'
 const ROUTE_PREFIX = '/api/configs/'
 const CONFIGS_ROOT = path.resolve(process.cwd(), 'configs')
 
-function contentTypeOf(filePath: string): string {
+function contentTypeOf (filePath: string): string {
   if (filePath.endsWith('.json')) return 'application/json; charset=utf-8'
   if (filePath.endsWith('.yml') || filePath.endsWith('.yaml')) return 'text/yaml; charset=utf-8'
   return 'text/plain; charset=utf-8'
 }
 
-function weakEtagFor(s: { size: number; mtimeMs: number }): string {
+function weakEtagFor (s: { size: number; mtimeMs: number }): string {
   return `W/"${s.size}-${Math.trunc(s.mtimeMs)}"`
 }
 
-function resolveInsideConfigs(requested: string): string | null {
+function resolveInsideConfigs (requested: string): string | null {
   const absolute = path.resolve(CONFIGS_ROOT, requested)
   const relative = path.relative(CONFIGS_ROOT, absolute)
   if (relative.startsWith('..') || path.isAbsolute(relative)) return null
   return absolute
 }
 
-function clientSentEtag(req: VercelRequest, etag: string): boolean {
+function clientSentEtag (req: VercelRequest, etag: string): boolean {
   const header = req.headers['if-none-match']
   if (!header) return false
   return String(header)
@@ -31,7 +31,7 @@ function clientSentEtag(req: VercelRequest, etag: string): boolean {
     .includes(etag)
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler (req: VercelRequest, res: VercelResponse) {
   const method = req.method || 'GET'
   if (method !== 'GET' && method !== 'HEAD') {
     res.setHeader('Allow', 'GET, HEAD')
